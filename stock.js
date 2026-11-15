@@ -12,16 +12,13 @@ for (const p of lowStock) {
 const stockValue = products.reduce((total, p) => total + p.qty * p.buy, 0);
 console.log(`Stock value at buying price: ${stockValue} XAF`);
 
-function profitPerUnit(product) {
-  return product.sell - product.buy;
-}
+const profitPerUnit = (p) => p.sell - p.buy;
 
-const best = products.reduce((a, b) =>
-  profitPerUnit(b) > profitPerUnit(a) ? b : a,
-);
-console.log(
-  `Highest profit per unit: ${best.name} (${profitPerUnit(best)} XAF)`,
-);
+let best = products[0];
+for (const p of products) {
+  if (profitPerUnit(p) > profitPerUnit(best)) best = p;
+}
+console.log(`Best profit per unit: ${best.name} (${profitPerUnit(best)} XAF)`);
 
 //Assignment 1: Completely out of stock
 function outOfStock(list) {
